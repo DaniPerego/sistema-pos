@@ -1,0 +1,32 @@
+version: '3.8'
+services:
+  postgres:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: sistema_pos
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+      - ./db:/docker-entrypoint-initdb.d
+  sso-service:
+    build: ./services/sso
+    env_file:
+      - ./services/sso/.env.example
+    ports:
+      - "3001:3001"
+    depends_on:
+      - postgres
+  pos-service:
+    build: ./services/pos
+    env_file:
+      - ./services/pos/.env.example
+    ports:
+      - "3002:3002"
+    depends_on:
+      - postgres
+volumes:
+  db_data:
