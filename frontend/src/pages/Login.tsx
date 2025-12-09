@@ -7,11 +7,13 @@ const Login: React.FC = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
+  const SSO_API_URL = process.env.REACT_APP_SSO_API_URL || 'http://localhost:3001';
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
     try {
-      const res = await fetch('/auth/login', {
+      const res = await fetch(`${SSO_API_URL}/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
@@ -21,7 +23,7 @@ const Login: React.FC = () => {
         localStorage.setItem('token', data.token);
         // Decodificar el JWT para obtener el rol
         const payload = JSON.parse(atob(data.token.split('.')[1]));
-        if (payload.role_name === 'POS_OPERATOR') navigate('/pos');
+        if (payload.role_name === 'CAJERO') navigate('/pos');
         else if (payload.role_name === 'ADMIN') navigate('/dashboard');
         else navigate('/');
       } else {
