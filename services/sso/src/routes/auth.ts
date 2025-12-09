@@ -1,10 +1,9 @@
 import { Router } from 'express';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import { Pool } from 'pg';
+import pool from '../db';
 
 const router = Router();
-const pool = new Pool();
 
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;

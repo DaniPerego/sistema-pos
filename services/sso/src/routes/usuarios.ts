@@ -1,10 +1,9 @@
 import { Router } from 'express';
 import bcrypt from 'bcrypt';
-import { Pool } from 'pg';
-import verifyToken from '@core/auth-middleware';
+import pool from '../db';
+import verifyToken from '../middleware/auth';
 
 const router = Router();
-const pool = new Pool();
 
 router.post('/', verifyToken, async (req: any, res) => {
   if (req.role_name !== 'ADMIN') return res.status(403).json({ error: 'Solo ADMIN puede crear usuarios' });

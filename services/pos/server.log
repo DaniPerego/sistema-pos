@@ -1,0 +1,8 @@
+
+> pos-service@1.0.0 dev
+> ts-node-dev src/index.ts
+
+[INFO] 14:54:51 ts-node-dev ver. 2.0.0 (using ts-node ver. 10.9.2, typescript ver. 5.9.3)
+[dotenv@17.2.3] injecting env (2) from .env -- tip: 🔑 add access controls to secrets: https://dotenvx.com/ops
+[dotenv@17.2.3] injecting env (0) from .env -- tip: 🗂️ backup and recover secrets: https://dotenvx.com/ops
+POS Service running on port 3002
